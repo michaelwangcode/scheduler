@@ -8,10 +8,18 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
+import Appointment from "components/Appointment/index.js";
+import Header from "components/Appointment/Header.js";
+import Empty from "components/Appointment/Empty.js";
+import Show from "components/Appointment/Show.js";
+import Confirm from "components/Appointment/Confirm.js";
+import Status from "components/Appointment/Status.js";
+import Error from "components/Appointment/Error.js";
 
 
 
-// Add Buttons to the StoryBook
+
+// Add Button to the StoryBook
 storiesOf("Button", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -29,7 +37,7 @@ storiesOf("Button", module)
   ));
 
 
-// Add DayListItems to the StoryBook
+// Add DayListItem to the StoryBook
 storiesOf("DayListItem", module) //Initiates Storybook and registers our DayListItem component
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -62,7 +70,7 @@ const days = [
 ];
 
 
-// Add DayLists to the StoryBook
+// Add DayList to the StoryBook
 storiesOf("DayList", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
@@ -143,3 +151,41 @@ storiesOf("InterviewerList", module)
       onChange={action("setInterviewer")}
     />
   ));
+
+
+// Add Appointment to the StoryBook
+storiesOf("Appointment", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Appointment with Time", () => <Appointment time="12pm" />)
+  .add("Header", () => <Header time="12pm" />)
+  .add("Empty", () => <Empty onAdd={action("onAdd")} />)
+  .add("Show", () => (
+    <Show 
+      student="Lydia Miller-Jones" 
+      interviewer={interviewer}
+      onEdit={action("onEdit")}
+      onDelete={action("onDelete")}
+    />
+  ))
+  .add("Confirm", () => (
+    <Confirm 
+      message="Delete the appointment?"
+      onConfirm={action("onConfirm")}
+      onCancel={action("onCancel")}
+    />
+  ))
+  .add("Status", () => (
+    <Status 
+      message="Deleting"
+    />
+  ))
+  .add("Error", () => (
+    <Error 
+      message="Could not delete appointment."
+      onClose={action("onClose")}
+    />
+  ))
+
