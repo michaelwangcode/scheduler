@@ -1,8 +1,7 @@
 import React from "react";
-
 import "components/DayListItem.scss";
-
 import classNames from "classnames";
+
 
 
 export default function DayListItem(props) {
@@ -13,7 +12,7 @@ export default function DayListItem(props) {
     "day-list__item--full": props.spots === 0
   });
 
-  // This function return a string based on the number of spots remaining
+  // This function returns a string based on the number of spots remaining
   let formatSpots = function(spots) {
     if (spots === 0) {
       return "no spots remaining";
@@ -26,7 +25,7 @@ export default function DayListItem(props) {
 
   return (
     // When a DayListItem with setDay is clicked, pass in the name of the day
-    <li className={dayListItemClass} onClick={() => props.setDay(props.name)}>
+    <li className={dayListItemClass} onClick={() => props.setDay(props.name)} selected={props.selected}>
       <h2 className="text--regular">{props.name}</h2> 
       <h3 className="text--light">{formatSpots(props.spots)}</h3>
     </li>

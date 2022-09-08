@@ -1,15 +1,28 @@
 import React from "react";
-
 import DayListItem from "components/DayListItem";
+
+
 
 export default function DayList(props) {
 
   // A Days array will be passed as a prop, which supplies data to the DayListItems
 
-  // Iterate over the Days array
-  // Use data to create a new array of DayListItem components
-  // Use the map method
-  // The DayListItem components will be rendered in the <ul> component
+  /*
+  const days = [
+    { id: 1,
+      name: "Monday",
+      spots: 2 },
+    { id: 2,
+      name: "Tuesday",
+      spots: 5 },
+    { id: 3,
+      name: "Wednesday",
+      spots: 0 },
+  ];
+  */
+
+  // Iterate over the Days array and use the map method
+  // to create a new array of DayListItem components
   const days = props.days.map((day) => {
 
     return (
@@ -17,12 +30,13 @@ export default function DayList(props) {
         key={day.id}
         name={day.name}
         spots={day.spots}
-        selected={day.name === props.day}
-        setDay={props.setDay}
+        selected={day.name === props.value}
+        setDay={props.onChange}
       />
     )
   })
 
+  // Display the list of days
   return (
     <ul>
       {days}
