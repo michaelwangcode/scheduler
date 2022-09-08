@@ -22,12 +22,14 @@ export default function InterviewerList(props) {
   // to create a new array of InterviewerListItem components
   const interviewers = props.interviewers.map((interviewer) => {
 
+    console.log(interviewer);
+
     return (
       <InterviewerListItem
         key={interviewer.id}
         name={interviewer.name}
         avatar={interviewer.avatar}
-        selected={interviewer.id === props.value}
+        selected={interviewer.id === props.interviewer}
         setInterviewer={() => props.onChange(interviewer.id)}
       />
     )
