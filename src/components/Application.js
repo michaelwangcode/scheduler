@@ -1,27 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
+import axios from "axios";
 
-
-// Array of day objects
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
 
 
 // Array of appointments
@@ -66,11 +48,22 @@ const appointmentsObject = {
 
 
 
-
-
+// Application component
 export default function Application(props) {
 
   const [day, setDay] = useState("Monday");
+  const [days, setDays] = useState([]);
+
+  // Use axios to get the Days from an API
+  useEffect(() => {
+    const daysURL = `http://localhost:8001/api/days`;
+    axios.get(daysURL).then(response => {
+      setDays([...response.data]);
+
+      console.log(response.data);
+    });
+  }, [])
+  
 
   // Convert the appointments object into an array
   const appointmentsArray = Object.values(appointmentsObject).map((appointment) => {
@@ -84,6 +77,7 @@ export default function Application(props) {
   })
 
 
+  // Return the Application component
   return (
     <main className="layout">
       <section className="sidebar">
@@ -93,25 +87,27 @@ export default function Application(props) {
           alt="Interview Scheduler"
         />
         <hr className="sidebar__separator sidebar--centered" />
-        <nav className="sidebar__menu">
 
+        {/* Display the Days list in the sidebar */}
+        <nav className="sidebar__menu">
           <DayList
             days={days}
             value={day}
             onChange={setDay}
           />
-
         </nav>
+
         <img
           className="sidebar__lhl sidebar--centered"
           src="images/lhl.png"
           alt="Lighthouse Labs"
         />
       </section>
+
+      {/* Display the Schedule in the schedule section */}
       <section className="schedule">
 
         {appointmentsArray}
-
         <Appointment key="last" time="5pm" />
 
       </section>

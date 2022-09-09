@@ -10,7 +10,7 @@ import Empty from "./Empty";
 
 export default function Appointment(props) {
 
-  console.log(props.time);
+  //console.log(props.time);
 
   return (
     <article className="appointment">
