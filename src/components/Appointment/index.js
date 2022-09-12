@@ -6,9 +6,9 @@ import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
-import Status from "./Status";
-import Confirm from "./Confirm";
-import Error from "./Error";
+//import Status from "./Status";
+//import Confirm from "./Confirm";
+//import Error from "./Error";
 
 
 
@@ -26,6 +26,16 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+
+  // Function for saving interviews
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+
+    props.bookInterview(props.id, interview);
+  }
 
   return (
     <article className="appointment">
@@ -50,6 +60,7 @@ export default function Appointment(props) {
           value={props.value}
           interviewers={props.interviewers}
           onCancel={back}
+          onSave={save}
         />
       )}
 

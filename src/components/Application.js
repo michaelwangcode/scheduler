@@ -28,7 +28,7 @@ export default function Application(props) {
       axios.get("/api/interviewers")
     ]).then((all) => {
       setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
-      console.log(all);
+      // console.log(all);
     })
   }, [])
   
@@ -52,9 +52,18 @@ export default function Application(props) {
         time={appointment.time}
         interviewers={dailyInterviewers}
         interview={interview}
+        bookInterview={bookInterview} // Pass the bookInterview function
       />
     );
   });
+
+
+  // Function for booking interviews
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
+
+
 
   // Return the Application component
   return (
@@ -87,7 +96,7 @@ export default function Application(props) {
       <section className="schedule">
 
         {appointmentsArray}
-        <Appointment key="last" time="5pm" />
+        <Appointment key="last" time="5pm" bookInterview={bookInterview}/>
 
       </section>
     </main>
