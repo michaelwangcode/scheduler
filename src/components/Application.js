@@ -73,9 +73,6 @@ export default function Application(props) {
       [id]: appointment
     };
 
-
-    // console.log(interview);
-
     // Save the interview data to the appointments database with the following format:
     // "interview": { student: "Archie Cohen", interviewer: 2 }
     axios.put(`api/appointments/${id}`, {"interview": interview})

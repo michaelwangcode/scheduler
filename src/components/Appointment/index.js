@@ -39,13 +39,20 @@ export default function Appointment(props) {
     // Transition to the SAVING mode
     transition(SAVING);
 
-    // Call the bookInterview function that was passed down
-    props.bookInterview(props.id, interview)
+    // Add a 1 second delay (to simulate fetching data)
+    setTimeout(function () {
+  
+      // Call the bookInterview function that was passed down
+      props.bookInterview(props.id, interview)
 
-    // Transition to the SHOW mode
-    transition(SHOW);
+      // Transition to the SHOW mode
+      transition(SHOW);
+                
+    }, 1000);
   }
 
+
+  // Return the Application component
   return (
     <article className="appointment">
       <Header time={props.time}></Header>
