@@ -34,7 +34,11 @@ export default function Appointment(props) {
       interviewer
     };
 
+    // Call the bookInterview function that was passed down
     props.bookInterview(props.id, interview);
+
+    // Transition to the SHOW mode
+    transition(SHOW);
   }
 
   return (

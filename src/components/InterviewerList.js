@@ -22,7 +22,7 @@ export default function InterviewerList(props) {
   // to create a new array of InterviewerListItem components
   const interviewers = props.interviewers.map((interviewer) => {
 
-    console.log(interviewer);
+    // console.log(interviewer);
 
     return (
       <InterviewerListItem

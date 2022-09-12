@@ -60,9 +60,33 @@ export default function Application(props) {
 
   // Function for booking interviews
   function bookInterview(id, interview) {
-    console.log(id, interview);
+
+    // Update the appointment object
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+  
+    // Update the appointments object
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    // Call setState with the new state object
+    setState({
+      ...state,
+      appointments
+    })
+
+    // console.log(interview);
+
+    // Save the interview data to the appointments database with the following format:
+    // "interview": { student: "Archie Cohen", interviewer: 2 }
+    axios.put(`api/appointments/${id}`, {"interview": interview})
   }
 
+  
 
 
   // Return the Application component
