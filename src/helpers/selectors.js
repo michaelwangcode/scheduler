@@ -50,3 +50,12 @@ export function getInterview(state, interview) {
 }
 
 
+
+
+// This function returns an array of interviewers for that day
+// It takes a state object and a string for the day: "Monday" etc.
+export function getInterviewersForDay(state, day) {
+
+
+
+}
