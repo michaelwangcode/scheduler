@@ -73,17 +73,18 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    // Call setState with the new state object
-    setState({
-      ...state,
-      appointments
-    })
 
     // console.log(interview);
 
     // Save the interview data to the appointments database with the following format:
     // "interview": { student: "Archie Cohen", interviewer: 2 }
     axios.put(`api/appointments/${id}`, {"interview": interview})
+
+    // Call setState with the new state object
+    setState({
+      ...state,
+      appointments
+    })
   }
 
   
