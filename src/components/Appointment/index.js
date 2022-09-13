@@ -63,7 +63,7 @@ export default function Appointment(props) {
         .catch((error) => {
 
           // Transition to the ERROR_SAVE mode          
-          transition(ERROR_SAVE);
+          transition(ERROR_SAVE, true);
         })
 
     }, 1000);
@@ -82,7 +82,7 @@ export default function Appointment(props) {
     } else {
 
       // Transition to the DELETE mode
-      transition(DELETING);
+      transition(DELETING, true);
 
       // Add a 1 second delay (to simulate deleting data)
       setTimeout(function () {
@@ -97,7 +97,7 @@ export default function Appointment(props) {
           .catch(() => {
 
             // Transition to the ERROR_DELETE mode          
-            transition(ERROR_DELETE);
+            transition(ERROR_DELETE, true);
           })
 
       }, 1000);
