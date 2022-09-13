@@ -33,6 +33,13 @@ export default function Appointment(props) {
 
   // Function for saving appointments
   function save(name, interviewer) {
+
+    // If name or interviewer are blank, don't save
+    if (!name || !interviewer) {
+      return
+    }
+
+    // Store the interview info
     const interview = {
       student: name,
       interviewer
@@ -112,7 +119,7 @@ export default function Appointment(props) {
       {mode === CREATE && (
         // Add the Create component
         <Form
-          name={props.interview.student}
+          name={props.name}
           value={props.value}
           interviewers={props.interviewers}
           onCancel={back}
