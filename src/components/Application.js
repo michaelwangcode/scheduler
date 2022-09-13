@@ -53,6 +53,7 @@ export default function Application(props) {
         interviewers={dailyInterviewers}
         interview={interview}
         bookInterview={bookInterview} // Pass the bookInterview function
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -62,6 +63,7 @@ export default function Application(props) {
   function bookInterview(id, interview) {
 
     // Update the appointment object
+    // Add the interview to the "appointments" section of the database
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -84,6 +86,28 @@ export default function Application(props) {
     })
   }
 
+
+
+  // Function for cancelling (deleting) an existing interview
+  function cancelInterview(id) {
+
+    // Update the appointments object
+    const appointments = {
+      ...state.appointments,
+      id: {}
+    };
+
+    //delete appointments[id];
+
+    // Call setState with the new state object
+    setState({
+      ...state,
+      appointments
+    })
+
+    // Delete the 
+    axios.delete(`api/appointments/${id}`);
+  }
   
 
 
