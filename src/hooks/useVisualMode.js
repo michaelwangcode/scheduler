@@ -40,6 +40,7 @@ export default function useVisualMode(initial) {
     }
   }
 
+
   // Go back to a previous mode
   function back() {
 
@@ -59,6 +60,7 @@ export default function useVisualMode(initial) {
       setHistory(oldHistory);
     }
   }
+  
 
   // Return the mode, transition function and back function
   return { mode, transition, back }

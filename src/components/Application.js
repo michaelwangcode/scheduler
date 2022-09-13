@@ -77,13 +77,12 @@ export default function Application(props) {
 
     // Save the interview data to the appointments database with the following format:
     // "interview": { student: "Archie Cohen", interviewer: 2 }
-    axios.put(`api/appointments/${id}`, {"interview": interview})
+    return axios.put(`api/appointments/${id}`, {"interview": interview})
+      .then(() => {
 
-    // Call setState with the new state object
-    setState({
-      ...state,
-      appointments
-    })
+        // Call setState with the new state object
+        setState({...state, appointments});
+      })
   }
 
 
@@ -96,19 +95,15 @@ export default function Application(props) {
       id: {}
     };
 
-    //delete appointments[id];
-
-    // Call setState with the new state object
-    setState({
-      ...state,
-      appointments
-    })
-
     // Delete the appointment from the database
-    axios.delete(`api/appointments/${id}`);
+    return axios.delete(`api/appointments/${id}`)
+      .then(() => {
+
+        // Call setState with the new state object
+        setState({...state, appointments});
+      })
   }
   
-
 
   // Return the Application component
   return (
