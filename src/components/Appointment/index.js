@@ -7,8 +7,7 @@ import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
 import Status from "./Status";
-//import Status from "./Status";
-//import Confirm from "./Confirm";
+import Confirm from "./Confirm";
 //import Error from "./Error";
 
 
@@ -21,7 +20,7 @@ export default function Appointment(props) {
   const CREATE = "CREATE";
   const SAVING = "SAVING";
   const DELETING = "DELETING";
-
+  const CONFIRM = "CONFIRM";
 
 
   // Use our useVisualMode hook
@@ -57,19 +56,28 @@ export default function Appointment(props) {
   // Function for deleting appointment
   function deleteAppointment() {
 
-    // Transition to the DELETE mode
-    transition(DELETING);
+    // If the mode is currently SHOW,
+    if (mode === SHOW) {
 
-    // Add a 1 second delay (to simulate deleting data)
-    setTimeout(function () {
-
-      // Call the cancelInterview function passed down from Application
-      props.cancelInterview(props.id)
-
-      // Transition to the EMPTY mode
-      transition(EMPTY);
+      // Transition to the CONFIRM mode ("Delete this appointment?")
+      transition(CONFIRM);
       
-    }, 1000);
+    } else {
+
+      // Transition to the DELETE mode
+      transition(DELETING);
+
+      // Add a 1 second delay (to simulate deleting data)
+      setTimeout(function () {
+
+        // Call the cancelInterview function passed down from Application
+        props.cancelInterview(props.id);
+          
+        // Transition to the EMPTY mode
+        transition(EMPTY);
+
+      }, 1000);
+    }
   }
 
 
@@ -111,6 +119,14 @@ export default function Appointment(props) {
       {mode === DELETING && (
         <Status
           message={"Deleting"}
+        />
+      )}
+
+      {mode === CONFIRM && (
+        <Confirm
+          message={"Are you sure you would like to delete?"}
+          onCancel={back}
+          onConfirm={deleteAppointment}
         />
       )}
 
