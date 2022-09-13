@@ -21,6 +21,7 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
+  const EDIT = "EDIT";
 
 
   // Use our useVisualMode hook
@@ -30,7 +31,7 @@ export default function Appointment(props) {
   );
 
 
-  // Function for saving appointment
+  // Function for saving appointments
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -81,6 +82,14 @@ export default function Appointment(props) {
   }
 
 
+  // Function for editing an appointment
+  function editAppointment() {
+
+    // Transition to the EDIT mode
+    transition(EDIT);
+  }
+
+
   // Return the Application component
   return (
     <article className="appointment">
@@ -96,13 +105,14 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={deleteAppointment}
+          onEdit={editAppointment}
         />
       )}
       
       {mode === CREATE && (
         // Add the Create component
         <Form
-          name={props.name}
+          name={props.interview.student}
           value={props.value}
           interviewers={props.interviewers}
           onCancel={back}
@@ -127,6 +137,16 @@ export default function Appointment(props) {
           message={"Are you sure you would like to delete?"}
           onCancel={back}
           onConfirm={deleteAppointment}
+        />
+      )}
+
+      {mode === EDIT && (
+        <Form
+          student={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          interviewers={props.interviewers}
+          onCancel={back}
+          onSave={save}
         />
       )}
 

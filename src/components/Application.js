@@ -87,7 +87,6 @@ export default function Application(props) {
   }
 
 
-
   // Function for cancelling (deleting) an existing interview
   function cancelInterview(id) {
 
@@ -105,7 +104,7 @@ export default function Application(props) {
       appointments
     })
 
-    // Delete the 
+    // Delete the appointment from the database
     axios.delete(`api/appointments/${id}`);
   }
   
