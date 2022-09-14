@@ -1,37 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import axios from "axios";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
-
+import useApplicationData from "hooks/useApplicationData";
 
 
 // Application component
-export default function Application(props) {
+export default function Application() {
 
-  // Combine the day, days and appointments into one state variable
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {}
-  })
-
-  // set functions
-  const setDay = day => setState({...state, day});
-  
-  // Set the days and appointments at the same time using a promise
-  useEffect(() => {
-    Promise.all([
-      axios.get("/api/days"),
-      axios.get("/api/appointments"),
-      axios.get("/api/interviewers")
-    ]).then((all) => {
-      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
-      // console.log(all);
-    })
-  }, [])
-  
+  // Use our custom useApplicationData hook to manage state
+  // and import the bookInterview and cancelInterview functions
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
 
   // Store an array of appointments for one day
   const dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -57,52 +42,6 @@ export default function Application(props) {
       />
     );
   });
-
-
-  // Function for booking interviews
-  function bookInterview(id, interview) {
-
-    // Update the appointment object
-    // Add the interview to the "appointments" section of the database
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-  
-    // Update the appointments object
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
-    // Save the interview data to the appointments database with the following format:
-    // "interview": { student: "Archie Cohen", interviewer: 2 }
-    return axios.put(`api/appointments/${id}`, {"interview": interview})
-      .then(() => {
-
-        // Call setState with the new state object
-        setState({...state, appointments});
-      })
-  }
-
-
-  // Function for cancelling (deleting) an existing interview
-  function cancelInterview(id) {
-
-    // Update the appointments object
-    const appointments = {
-      ...state.appointments,
-      id: {}
-    };
-
-    // Delete the appointment from the database
-    return axios.delete(`api/appointments/${id}`)
-      .then(() => {
-
-        // Call setState with the new state object
-        setState({...state, appointments});
-      })
-  }
   
 
   // Return the Application component
