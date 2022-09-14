@@ -11,7 +11,7 @@ export default function useApplicationData() {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
   })
 
   // The setDay function sets the day to the current state
@@ -52,6 +52,10 @@ export default function useApplicationData() {
     return axios.put(`api/appointments/${id}`, {"interview": interview})
       .then(() => {
 
+        // Call the updateSpots function
+        // This updates the number of spots in the days array
+        updateSpots(-1);
+
         // Call setState with the new state object
         setState({...state, appointments});
       })
@@ -61,19 +65,57 @@ export default function useApplicationData() {
   // Function for cancelling (deleting) an existing interview
   function cancelInterview(id) {
 
+    // Update the appointment object
+    // Set the interview to null
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
     // Update the appointments object
     const appointments = {
       ...state.appointments,
-      id: {}
+      [id]: appointment
     };
 
     // Delete the appointment from the database
     return axios.delete(`api/appointments/${id}`)
       .then(() => {
 
+        // Call the updateSpots function
+        // This updates the number of spots in the days array
+        updateSpots(1);
+
         // Call setState with the new state object
         setState({...state, appointments});
       })
+  }
+
+
+  
+  // This helper function updates the number of spots in the days array
+  // Num is 1 or -1 depending on if an appointment is being created or deleted
+  function updateSpots(num) {
+
+    // Store the index of the day in the days array
+    let dayIndex;
+
+    // Set the current index in the days array depending on the day
+    if (state.day === "Monday") {
+      dayIndex = 0;
+    } else if (state.day === "Tuesday") {
+      dayIndex = 1;
+    } else if (state.day === "Wednesday") {
+      dayIndex = 2;
+    } else if (state.day === "Thursday") {
+      dayIndex = 3;
+    } else if (state.day === "Friday") {
+      dayIndex = 4;
+    }
+
+    // Set the spots for that day
+    // Num is 1 or -1 depending on if an appointment is being created or deleted
+    state.days[dayIndex].spots += num;
   }
 
 
