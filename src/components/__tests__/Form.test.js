@@ -18,7 +18,6 @@ describe("Form", () => {
   ];
 
 
-
   //----- TEST 1: Render form without student name if it is not provided -----//
   it("renders without student name if not provided", () => {
 
@@ -32,7 +31,6 @@ describe("Form", () => {
   });
 
 
-
   //----- TEST 2: Render form with the initial student name if it is provided -----//
   it("renders with initial student name", () => {
 
@@ -44,7 +42,6 @@ describe("Form", () => {
     // Expect the student name field to contain the student name
     expect(getByTestId("student-name-input")).toHaveValue("Lydia Miller-Jones");
   });
-
 
 
   //----- TEST 3: When saving an appointment, check that the student name is not blank -----//
@@ -88,7 +85,7 @@ describe("Form", () => {
   
 
   //----- TEST 5: Save the appointment if a name and interviewer is provided -----//
-  it("calls onSave function when the name and interviewer is defined", () => {
+  xit("calls onSave function when the name and interviewer is defined", () => {
     /* 1. Create the mock onSave function */
     const onSave = jest.fn();
 
@@ -107,6 +104,79 @@ describe("Form", () => {
     // Expect the onSave function to be called once 
     expect(onSave).toHaveBeenCalledTimes(1);
     expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", 1);
+  });
+
+
+  //----- TEST 6: Check if the name entered by the user has been submitted -----//
+  xit("submits the name entered by the user", () => {
+
+    const onSave = jest.fn();
+    const { getByText, getByPlaceholderText } = render(
+      <Form interviewers={interviewers} onSave={onSave} interviewer={1} />
+    );
+  
+    const input = getByPlaceholderText("Enter Student Name");
+  
+    fireEvent.change(input, { target: { value: "Lydia Miller-Jones" } });
+    fireEvent.click(getByText("Save"));
+  
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", 1);
+  });
+
+
+  //----- TEST 7: Check if the user can successfully submit the form after trying to submit a blank name -----//
+  it("can successfully save after trying to submit an empty student name", () => {
+    
+    const onSave = jest.fn();
+    const { getByText, getByPlaceholderText, queryByText } = render(
+      <Form interviewers={interviewers} onSave={onSave} interviewer={1} />
+    );
+  
+    fireEvent.click(getByText("Save"));
+  
+    expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
+    expect(onSave).not.toHaveBeenCalled();
+  
+    fireEvent.change(getByPlaceholderText("Enter Student Name"), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+  
+    fireEvent.click(getByText("Save"));
+  
+    expect(queryByText(/student name cannot be blank/i)).toBeNull();
+  
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", 1);
+  });
+
+
+  //----- TEST 8: Test to see if the cancel button resets the input field -----//
+  it("calls onCancel and resets the input field", () => {
+
+    const onCancel = jest.fn();
+    const { getByText, getByPlaceholderText, queryByText } = render(
+      <Form
+        interviewers={interviewers}
+        name="Lydia Mill-Jones"
+        onSave={jest.fn()}
+        onCancel={onCancel}
+      />
+    );
+  
+    fireEvent.click(getByText("Save"));
+  
+    fireEvent.change(getByPlaceholderText("Enter Student Name"), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+  
+    fireEvent.click(getByText("Cancel"));
+  
+    expect(queryByText(/student name cannot be blank/i)).toBeNull();
+  
+    expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
+  
+    expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
 

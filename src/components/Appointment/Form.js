@@ -19,6 +19,7 @@ export default function Form(props) {
   // Reset function used by the cancel function
   let reset = function() {
     setStudent("");
+    setError("");
     setInterviewer();
   }
 
@@ -43,6 +44,9 @@ export default function Form(props) {
       return;
     }
   
+    // Reset the error messages
+    setError("");
+
     // Save the student and interviewer
     props.onSave(student, interviewer);
   }
