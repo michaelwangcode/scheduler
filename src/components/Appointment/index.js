@@ -115,7 +115,7 @@ export default function Appointment(props) {
 
   // Return the Application component
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time}></Header>
 
       {/* Add the Empty component with the (+) button */}
