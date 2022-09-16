@@ -1,5 +1,11 @@
 # Interview Scheduler
 
+The Interview Scheduler is a program that allows students to book, edit and delete interviews.
+
+
+
+
+
 ## Setup
 
 Install dependencies with `npm install`.
