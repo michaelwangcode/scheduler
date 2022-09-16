@@ -113,9 +113,15 @@ export default function useApplicationData() {
       dayIndex = 4;
     }
 
-    // Set the spots for that day
-    // Num is 1 or -1 depending on if an appointment is being created or deleted
-    state.days[dayIndex].spots += num;
+
+    // Store a copy of the current state 
+    let currentState = {...state }
+
+    // Increment/decrement the spots attribute for the current day
+    currentState.days[dayIndex].spots += num;
+
+    // Set the state to the new state
+    setState(currentState)
   }
 
 
