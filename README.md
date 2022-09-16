@@ -2,8 +2,7 @@
 
 The Interview Scheduler is a program that allows students to book, edit and delete interviews.
 
-
-
+!["Screenshot of Desktop"](https://raw.githubusercontent.com/michaelwangcode/scheduler/master/docs/Screenshot1.png)
 
 
 ## Setup
