@@ -142,13 +142,13 @@ describe("Application", () => {
     // 8. Check if the student's name is displayed in the page
     await waitForElement(() => getByText(appointment, "John Smith"));
 
-    // 9. Check that the DayListItem with the text "Monday" also has the text "no spots remaining".
+    // 9. Check that the DayListItem with the text "Monday" also has the text "1 spot remaining".
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday"),
     );
 
-    // "1 spot remaining" does not appear for some reason, but it does in the real app
-    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
+    // Expect "1 spot remaining" to be displayed under Monday
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   })
 
 
@@ -188,13 +188,13 @@ describe("Application", () => {
     // 8. Wait until the Error is displaed
     await waitForElement(() => getByText(appointment, "Error"));
 
-    // 9. Check that the DayListItem with the text "Monday" also has the text "no spots remaining".
+    // 9. Check that the DayListItem with the text "Monday" also has the text "1 spot remaining".
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
 
-    // "1 spot remaining" does not appear for some reason, but it does in the real app
-    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
+    // Expect "1 spot remaining" to be displayed under Monday
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   })
 
 
@@ -229,13 +229,13 @@ describe("Application", () => {
     // 8. Wait until the Error is displaed
     await waitForElement(() => getByText(appointment, "Error"));
 
-    // 9. Check that the DayListItem with the text "Monday" also has the text "no spots remaining".
+    // 9. Check that the DayListItem with the text "Monday" also has the text "1 spot remaining".
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
 
-    // "1 spot remaining" does not appear for some reason, but it does in the real app
-    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
+    // Expect "1 spot remaining" to be displayed under Monday
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   })
 
 });
