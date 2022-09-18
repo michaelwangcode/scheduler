@@ -62,6 +62,33 @@ export default function useApplicationData() {
   }
 
 
+  // Function for editing interviews
+  function editInterview(id, interview) {
+
+    // Update the appointment object
+    // Add the interview to the "appointments" section of the database
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+  
+    // Update the appointments object
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    // Save the interview data to the appointments database with the following format:
+    // "interview": { student: "Archie Cohen", interviewer: 2 }
+    return axios.put(`api/appointments/${id}`, {"interview": interview})
+      .then(() => {
+
+        // Call setState with the new state object
+        setState({...state, appointments});
+      })
+  }
+
+
   // Function for cancelling (deleting) an existing interview
   function cancelInterview(id) {
 
@@ -125,5 +152,5 @@ export default function useApplicationData() {
   }
 
 
-  return { state, setDay, bookInterview, cancelInterview }
+  return { state, setDay, bookInterview, editInterview, cancelInterview }
 }

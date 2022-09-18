@@ -10,11 +10,12 @@ import useApplicationData from "hooks/useApplicationData";
 export default function Application() {
 
   // Use our custom useApplicationData hook to manage state
-  // and import the bookInterview and cancelInterview functions
+  // and import the bookInterview, editInterview and cancelInterview functions
   const {
     state,
     setDay,
     bookInterview,
+    editInterview,
     cancelInterview
   } = useApplicationData();
 
@@ -37,7 +38,9 @@ export default function Application() {
         time={appointment.time}
         interviewers={dailyInterviewers}
         interview={interview}
-        bookInterview={bookInterview} // Pass the bookInterview function
+        // Pass the book, edit and cancel interview functions
+        bookInterview={bookInterview}
+        editInterview={editInterview}
         cancelInterview={cancelInterview}
       />
     );

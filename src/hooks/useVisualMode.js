@@ -60,8 +60,27 @@ export default function useVisualMode(initial) {
       setHistory(oldHistory);
     }
   }
+
+
+  // Go back to a previous mode
+  // Used when closing an error message when trying to create or edit an appointment
+  function backToForm() {
+
+    // If the history array has more than one value
+    if (history.length > 1) {
+      
+      // Set the mode to the previous mode in the history stack
+      setMode(history[history.length -1]);
+
+      // Make a copy of the array in oldHistory
+      let oldHistory = [...history];
+
+      // Set the history to the oldHistory array
+      setHistory(oldHistory);
+    }
+  }
   
 
   // Return the mode, transition function and back function
-  return { mode, transition, back }
+  return { mode, transition, back, backToForm }
 }

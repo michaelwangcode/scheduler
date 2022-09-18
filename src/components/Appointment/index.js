@@ -28,7 +28,7 @@ export default function Appointment(props) {
 
   // Use our useVisualMode hook
   // If props.interview contains a value, use the SHOW mode
-  const { mode, transition, back } = useVisualMode(
+  const { mode, transition, back, backToForm } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
@@ -55,6 +55,43 @@ export default function Appointment(props) {
   
       // Call the bookInterview function that was passed down
       props.bookInterview(props.id, interview)
+        .then(() => {
+
+          // Transition to the SHOW mode          
+          transition(SHOW);
+        })
+        .catch((error) => {
+
+          // Transition to the ERROR_SAVE mode          
+          transition(ERROR_SAVE, true);
+        })
+
+    }, 1000);
+  }
+
+
+  // Function for editing appointments
+  function edit(name, interviewer) {
+
+    // If name or interviewer are blank, don't save
+    if (!name || !interviewer) {
+      return
+    }
+
+    // Store the interview info
+    const interview = {
+      student: name,
+      interviewer
+    };
+
+    // Transition to the SAVING mode
+    transition(SAVING);
+
+    // Add a 1 second delay (to simulate fetching data)
+    setTimeout(function () {
+  
+      // Call the editInterview function that was passed down
+      props.editInterview(props.id, interview)
         .then(() => {
 
           // Transition to the SHOW mode          
@@ -169,14 +206,14 @@ export default function Appointment(props) {
           interviewer={props.interview.interviewer.id}
           interviewers={props.interviewers}
           onCancel={back}
-          onSave={save}
+          onSave={edit}
         />
       )}
 
       {mode === ERROR_SAVE && (
         <Error
           message={"Could not create appointment"}
-          onClose={back}
+          onClose={backToForm}
         />
       )}
 
