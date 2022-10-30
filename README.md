@@ -16,23 +16,23 @@ Made during Lighthouse Labs (W07D1).
 
 !["Home"](https://raw.githubusercontent.com/michaelwangcode/scheduler/master/screenshots/home.png)
 
-## Add Interview
+### Add Interview
 
 !["Add"](https://raw.githubusercontent.com/michaelwangcode/scheduler/master/screenshots/add.png)
 
-## Interview Added
+### Interview Added
 
 !["Added"](https://raw.githubusercontent.com/michaelwangcode/scheduler/master/screenshots/added.png)
 
-## Delete Interview
+### Delete Interview
 
 !["Delete"](https://raw.githubusercontent.com/michaelwangcode/scheduler/master/screenshots/delete.png)
 
-## Interview Deleted
+### Interview Deleted
 
 !["Deleting"](https://raw.githubusercontent.com/michaelwangcode/scheduler/master/screenshots/deleting.png)
 
-## Edit Interview
+### Edit Interview
 
 !["Edit"](https://raw.githubusercontent.com/michaelwangcode/scheduler/master/screenshots/edit.png)
 
